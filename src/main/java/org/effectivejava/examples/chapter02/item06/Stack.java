@@ -16,11 +16,20 @@ public class Stack {
 		ensureCapacity();
 		elements[size++] = e;
 	}
-
+//pop with memory leak
 	public Object pop() {
 		if (size == 0)
 			throw new EmptyStackException();
 		return elements[--size];
+	}
+
+	//pop without memory leak
+	public Object popWithoutMemoryLeak() {
+		if (size == 0)
+			throw new EmptyStackException();
+		Object result = elements[--size];
+		elements[size] = null; // Eliminate obsolete reference
+		return result;
 	}
 
 	/**
